@@ -51,7 +51,6 @@ Dvb *DvbData                = NULL;
 
 extern "C"
 {
-
 void ADDON_ReadSettings(void)
 {
   char buffer[1024];
