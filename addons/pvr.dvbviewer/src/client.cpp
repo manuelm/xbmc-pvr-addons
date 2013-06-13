@@ -37,7 +37,6 @@ CStdString g_strHostname             = DEFAULT_HOST;
 int        g_iConnectTimeout         = DEFAULT_CONNECT_TIMEOUT;
 int        g_iPortWeb                = DEFAULT_WEB_PORT;
 int        g_iPortStream             = DEFAULT_STREAM_PORT;
-int        g_iPortRecording          = DEFAULT_RECORDING_PORT;
 CStdString g_strUsername             = "";
 CStdString g_strPassword             = "";
 bool       g_bUseFavourites          = false;
@@ -75,10 +74,6 @@ void ADDON_ReadSettings(void)
   if (!XBMC->GetSetting("webport", &g_iPortWeb))
     g_iPortWeb = DEFAULT_WEB_PORT;
 
-  /* read setting "recordingport" from settings.xml */
-  if (!XBMC->GetSetting("recordingport", &g_iPortRecording))
-    g_iPortRecording = DEFAULT_RECORDING_PORT;
-
   /* read setting "usefavourites" from settings.xml */
   if (!XBMC->GetSetting("usefavourites", &g_bUseFavourites))
     g_bUseFavourites = false;
@@ -103,7 +98,6 @@ void ADDON_ReadSettings(void)
   }
   XBMC->Log(LOG_DEBUG, "WebPort:    %d", g_iPortWeb);
   XBMC->Log(LOG_DEBUG, "StreamPort: %d", g_iPortStream);
-  XBMC->Log(LOG_DEBUG, "Rec.Port:   %d", g_iPortRecording);
   XBMC->Log(LOG_DEBUG, "Use favourites: %s", (g_bUseFavourites) ? "yes" : "no");
   if (g_bUseFavourites)
     XBMC->Log(LOG_DEBUG, "Favourites Path: %s", g_strFavouritesPath.c_str());
@@ -211,11 +205,6 @@ ADDON_STATUS ADDON_SetSetting(const char *settingName, const void *settingValue)
   else if (sname == "webport")
   {
     if (g_iPortWeb != *(int *)settingValue)
-      return ADDON_STATUS_NEED_RESTART;
-  }
-  else if (sname == "recordingport")
-  {
-    if (g_iPortRecording != *(int *)settingValue)
       return ADDON_STATUS_NEED_RESTART;
   }
   else if (sname == "usefavourites")
@@ -487,6 +476,7 @@ bool CanPauseStream(void)
 {
   if (!DvbData || !DvbData->IsConnected())
     return false;
+
   return g_bUseTimeshift;
 }
 
@@ -494,6 +484,7 @@ bool CanSeekStream(void)
 {
   if (!DvbData || !DvbData->IsConnected())
     return false;
+
   return g_bUseTimeshift;
 }
 
@@ -501,6 +492,7 @@ int ReadLiveStream(unsigned char *pBuffer, unsigned int iBufferSize)
 {
   if (!DvbData || !DvbData->IsConnected())
     return 0;
+
   return DvbData->ReadLiveStream(pBuffer, iBufferSize);
 }
 
@@ -508,6 +500,7 @@ long long SeekLiveStream(long long iPosition, int iWhence /* = SEEK_SET */)
 {
   if (!DvbData || !DvbData->IsConnected())
     return -1;
+
   return DvbData->SeekLiveStream(iPosition, iWhence);
 }
 
@@ -515,6 +508,7 @@ long long PositionLiveStream(void)
 {
   if (!DvbData || !DvbData->IsConnected())
     return -1;
+
   return DvbData->PositionLiveStream();
 }
 
@@ -522,14 +516,17 @@ long long LengthLiveStream(void)
 {
   if (!DvbData || !DvbData->IsConnected())
     return 0;
+
   return DvbData->LengthLiveStream();
 }
 
 PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
 {
   // the RS api doesn't provide information about signal quality (yet)
-  strncpy(signalStatus.strAdapterName, "DVBViewer Recording Service", sizeof(signalStatus.strAdapterName));
-  strncpy(signalStatus.strAdapterStatus, "OK", sizeof(signalStatus.strAdapterStatus));
+  strncpy(signalStatus.strAdapterName, "DVBViewer Recording Service",
+      sizeof(signalStatus.strAdapterName));
+  strncpy(signalStatus.strAdapterStatus, "OK",
+      sizeof(signalStatus.strAdapterStatus));
   return PVR_ERROR_NO_ERROR;
 }
 
