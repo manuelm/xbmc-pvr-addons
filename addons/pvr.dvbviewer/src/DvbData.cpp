@@ -191,36 +191,75 @@ PVR_ERROR Dvb::GetEPGForChannel(ADDON_HANDLE handle, const PVR_CHANNEL& channel,
   }
 
   XMLNode xNode = xMainNode.getChildNode("epg");
-  int n = xNode.nChildNode("programme");
+
+  // check epg version
+  int iEPGversion = atoi(xNode.getAttribute("Ver"));
+  int n;
+
+  switch (iEPGversion)
+  {
+    case 1 : n = xNode.nChildNode("programme");
+             break;
+    case 2 : n = xNode.nChildNode("prg");
+  }
+
   XBMC->Log(LOG_DEBUG, "%s Number of EPG entries for channel '%s': %d",
     __FUNCTION__, channel.strChannelName, n);
 
   unsigned iNumEPG = 0;
   for (int i = 0; i < n; ++i)
   {
+    CStdString strTmp;
     DvbEPGEntry entry;
     entry.iChannelUid = channel.iUniqueId;
+    XMLNode xTmp;
 
-    XMLNode xTmp = xNode.getChildNode("programme", i);
-    entry.startTime = ParseDateTime(xNode.getChildNode("programme", i).getAttribute("start"));
-    entry.endTime = ParseDateTime(xNode.getChildNode("programme", i).getAttribute("stop"));
+    switch (iEPGversion)
+    {
+      case 1 : xTmp = xNode.getChildNode("programme", i);
+               break;
+      case 2 : xTmp = xNode.getChildNode("prg", i);
+    }
 
-    if (iEnd > 1 && iEnd < entry.endTime)
-       continue;
+    entry.startTime = ParseDateTime(xTmp.getAttribute("start"));
+    entry.endTime = ParseDateTime(xTmp.getAttribute("stop"));
 
-    if (!GetXMLValue(xTmp, "eventid", entry.iEventId))
+    switch (iEPGversion)
+    {
+      case 1 : if(!GetXMLValue(xTmp,"eventid",strTmp, true))
+                 continue;
+               break;
+      case 2 : strTmp = xTmp.getAttribute("evid");
+               if (strTmp.length() == 0)
+                 continue;
+    }
+
+    entry.iEventId = atoi(strTmp);
+
+    if(!GetXMLValue(xTmp, "title", strTmp, true))
       continue;
 
-    if(!GetXMLValue(xTmp.getChildNode("titles"), "title", entry.strTitle, true))
-      continue;
+    entry.strTitle = strTmp;
+    strTmp.clear();        
 
-    CStdString strTmp, strTmp2;
-    GetXMLValue(xTmp.getChildNode("descriptions"), "description", strTmp, true);
-    GetXMLValue(xTmp.getChildNode("events"), "event", strTmp2, true);
-    if (strTmp.length() > strTmp2.length())
+    switch (iEPGversion)
+    {
+      case 1 : GetXMLValue(xTmp,"description", strTmp, true);
+               break;
+      case 2 : GetXMLValue(xTmp,"descr", strTmp, true);
+    }
+
+    if (!strTmp.IsEmpty())
+    {
       entry.strPlot = strTmp;
+      GetXMLValue(xTmp, "event", strTmp, true);
+      entry.strPlotOutline = strTmp;
+    }
     else
-      entry.strPlot = strTmp2;
+    {
+      GetXMLValue(xTmp, "event", strTmp, true);
+      entry.strPlot = strTmp;
+    }
 
     EPG_TAG broadcast;
     memset(&broadcast, 0, sizeof(EPG_TAG));
