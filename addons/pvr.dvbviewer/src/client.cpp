@@ -469,6 +469,7 @@ const char *GetLiveStreamURL(const PVR_CHANNEL &channel)
   if (!DvbData || !DvbData->IsConnected())
     return "";
 
+  DvbData->SwitchChannel(channel);
   return DvbData->GetLiveStreamURL(channel).c_str();
 }
 
