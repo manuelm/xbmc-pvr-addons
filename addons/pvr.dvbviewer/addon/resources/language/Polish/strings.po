@@ -1,8 +1,8 @@
 # XBMC Media Center language file
 # Addon Name: DVBViewer Client
 # Addon id: pvr.dvbviewer
-# Addon version: 1.6.5
-# Addon Provider: jdembski, A600
+# Addon version: 1.8.10
+# Addon Provider: jdembski, A600, Manuel Mausz, Portisch
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Main Translation Project (Frodo)\n"
@@ -17,6 +17,8 @@ msgstr ""
 "Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+#settings labels
+
 msgctxt "#30000"
 msgid "DVBViewer Recording Service IP Address"
 msgstr "Adres IP usługi nagrywania DVBViewer"
@@ -26,33 +28,77 @@ msgid "Webinterface Port"
 msgstr "Port interfejsu webowego"
 
 msgctxt "#30002"
-msgid "Streaming Port"
-msgstr "Port strumieniowania"
-
-msgctxt "#30003"
-msgid "Recordings Port"
-msgstr "Port nagrywania"
-
-msgctxt "#30004"
 msgid "Username"
 msgstr "Użytkownik"
 
-msgctxt "#30005"
+msgctxt "#30003"
 msgid "Password"
 msgstr "Hasło"
 
-msgctxt "#30006"
-msgid "Load channels from favourites.xml instead of from channels.dat"
-msgstr "Załaduj kanały z favourites.xml zamiast z channels.dat"
+msgctxt "#30010"
+msgid "Use favourites instead of channel list"
+msgstr "Używaj listy Uluionych zamiast pełnej list kanałów"
 
-msgctxt "#30007"
+msgctxt "#30011"
+msgid "Use local favourites file"
+msgstr "Używaj localnego pliku z listą Ulubionych"
+
+msgctxt "#30012"
 msgid "Select the favourites.xml file"
 msgstr "Wybierz plik favourites.xml"
 
+msgctxt "#30020"
+msgid "Enable Timeshift"
+msgstr "Włącz funkcję przesunięcia czasowego"
+
+msgctxt "#30021"
+msgid "Timeshift buffer path"
+msgstr "Ścieżka do pliku bufora funkcji przesunięcia czasowego"
+
+msgctxt "#30030"
+msgid "Use RTSP streaming for live TV"
+msgstr "Używaj protokołu RTSP do strumieniowania telewizji"
+
+msgctxt "#30040"
+msgid "Enable low performance mode (disables logos & thumbnails)"
+msgstr "Używaj trybu niskiej wydajności ( loga i mianiatury)"
+
+# sections
+
+msgctxt "#30100"
+msgid "General"
+msgstr "Ogólne"
+
+msgctxt "#30101"
+msgid "Advanced"
+msgstr "Zaawansowane"
+
+#notifications
+
 msgctxt "#30500"
-msgid "Can't connect to the Recording Service"
-msgstr "Nie można połączyć się z usługą nagrywania"
+msgid "Unable to connect to the DVBViewer Recording Service"
+msgstr "Wystąpił błąd podczas próby połączenia z usługą nagrywania DVBViewera"
 
 msgctxt "#30501"
-msgid "Recording Service version 1.%d or higher required"
-msgstr "Usługa nagrywania potrzebna w wersji 1.%d lub wyższej"
+msgid "DVBViewer Recording Service version %s or higher required"
+msgstr "wymagana usługa nagrywania DVBViewera w wersji %s lub nowszej"
+
+msgctxt "#30502"
+msgid "Unable to parse channel list"
+msgstr "Wystąpił błąd podczas parsowania listy kanałów"
+
+msgctxt "#30503"
+msgid "Check XBMC log for more information"
+msgstr "Sprawdź plik logów XBMC, aby uzyskać więcej informacji"
+
+msgctxt "#30504"
+msgid "Unable to open local favourites.xml"
+msgstr "Nie można otworzyć lokalnego pliku favourites.xml"
+
+msgctxt "#30505"
+msgid "Unable to parse favourites list"
+msgstr "Wystąpił błąd podczas parsowania listy ulubionych"
+
+msgctxt "#30506"
+msgid "Unable to parse timer list"
+msgstr "Wystąpił błąd podczas parsowania listy planowanych nagrań"
