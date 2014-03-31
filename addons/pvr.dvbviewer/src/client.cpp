@@ -491,34 +491,34 @@ bool CanSeekStream(void)
 
 int ReadLiveStream(unsigned char *pBuffer, unsigned int iBufferSize)
 {
-  if (!DvbData || !DvbData->IsConnected())
+  if (!DvbData || !DvbData->IsConnected() || !DvbData->GetTimeshiftBuffer())
     return 0;
 
-  return DvbData->ReadLiveStream(pBuffer, iBufferSize);
+  return DvbData->GetTimeshiftBuffer()->ReadData(pBuffer, iBufferSize);
 }
 
 long long SeekLiveStream(long long iPosition, int iWhence /* = SEEK_SET */)
 {
-  if (!DvbData || !DvbData->IsConnected())
+  if (!DvbData || !DvbData->IsConnected() || !DvbData->GetTimeshiftBuffer())
     return -1;
 
-  return DvbData->SeekLiveStream(iPosition, iWhence);
+  return DvbData->GetTimeshiftBuffer()->Seek(iPosition, iWhence);
 }
 
 long long PositionLiveStream(void)
 {
-  if (!DvbData || !DvbData->IsConnected())
+  if (!DvbData || !DvbData->IsConnected() || !DvbData->GetTimeshiftBuffer())
     return -1;
 
-  return DvbData->PositionLiveStream();
+  return DvbData->GetTimeshiftBuffer()->Position();
 }
 
 long long LengthLiveStream(void)
 {
-  if (!DvbData || !DvbData->IsConnected())
+  if (!DvbData || !DvbData->IsConnected() || !DvbData->GetTimeshiftBuffer())
     return 0;
 
-  return DvbData->LengthLiveStream();
+  return DvbData->GetTimeshiftBuffer()->Length();
 }
 
 PVR_ERROR SignalStatus(PVR_SIGNAL_STATUS &signalStatus)
