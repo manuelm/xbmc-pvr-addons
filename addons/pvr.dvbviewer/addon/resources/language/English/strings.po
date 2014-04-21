@@ -35,6 +35,8 @@ msgctxt "#30003"
 msgid "Password"
 msgstr ""
 
+#empty strings from id 30004 to 30009
+
 msgctxt "#30010"
 msgid "Use favourites instead of channel list"
 msgstr ""
@@ -47,6 +49,8 @@ msgctxt "#30012"
 msgid "Select the favourites.xml file"
 msgstr ""
 
+#empty strings from id 30013 to 30019
+
 msgctxt "#30020"
 msgid "Enable Timeshift"
 msgstr ""
@@ -55,15 +59,50 @@ msgctxt "#30021"
 msgid "Timeshift buffer path"
 msgstr ""
 
+#empty strings from id 30022 to 30029
+
 msgctxt "#30030"
 msgid "Use RTSP streaming for live TV"
 msgstr ""
+
+#empty strings from id 30031 to 30039
 
 msgctxt "#30040"
 msgid "Enable low performance mode (disables logos & thumbnails)"
 msgstr ""
 
-# sections
+#empty strings from id 30041 to 30099
+
+msgctxt "#30050"
+msgid "Group recordings"
+msgstr ""
+
+msgctxt "#30051"
+msgid "disabled"
+msgstr ""
+
+msgctxt "#30052"
+msgid "by recording directory"
+msgstr ""
+
+msgctxt "#30053"
+msgid "by recording date"
+msgstr ""
+
+msgctxt "#30054"
+msgid "by first letter"
+msgstr ""
+
+msgctxt "#30055"
+msgid "by tv channel"
+msgstr ""
+
+msgctxt "#30056"
+msgid "by series"
+msgstr ""
+
+#empty strings from id 30057 to 30099
+#sections
 
 msgctxt "#30100"
 msgid "General"
@@ -73,6 +112,11 @@ msgctxt "#30101"
 msgid "Advanced"
 msgstr ""
 
+msgctxt "#30102"
+msgid "Recordings"
+msgstr ""
+
+#empty strings from id 30103 to 30499
 #notifications
 
 msgctxt "#30500"
