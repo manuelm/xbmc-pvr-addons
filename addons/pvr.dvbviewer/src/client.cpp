@@ -287,7 +287,7 @@ void ADDON_FreeSettings()
 {
 }
 
-void ADDON_Announce(const char *flag, const char *sender,
+void ADDON_Announce(const char *_UNUSED(flag), const char *sender,
     const char *message, const void *_UNUSED(data))
 {
   if (recReader != NULL && strcmp(sender, "xbmc") == 0)
